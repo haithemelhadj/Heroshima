@@ -5,7 +5,8 @@ using UnityEngine;
 public class PLayer_Manager : MonoBehaviour
 {
     public Rigidbody2D rb;
-    [SerializeField] private float MoveSpeed;
+    [SerializeField][Range(0f, 10f)] private float MoveSpeed;
+    [SerializeField][Range (0f,10f)] private float Hspeed;
     private float DirectX;
     public Camera Camera;
     
@@ -14,6 +15,7 @@ public class PLayer_Manager : MonoBehaviour
     void Update()
     {
         Move();
+        transform.Translate(0f, Hspeed * Time.deltaTime, 0f);
     }
     //move right and left
     private void Move()
@@ -22,7 +24,7 @@ public class PLayer_Manager : MonoBehaviour
         DirectX = Input.GetAxis("Horizontal");
 
         //move
-        rb.velocity = new Vector2(DirectX * MoveSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(DirectX * MoveSpeed, 0f);
 
         //movement with tilting the phone
         DirectX = Input.acceleration.x * MoveSpeed * Time.deltaTime;
