@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int NuclearPower=0;
     [SerializeField] private int Score;
 
+
+    private float inittimer=1f;
+    private float timer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +22,19 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+        }
+        else
+        {
+            timer = inittimer;
+            Fuel -= 1;
+        }
+
     }
+
+
+    
+    
 }

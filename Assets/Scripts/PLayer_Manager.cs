@@ -6,7 +6,7 @@ public class PLayer_Manager : MonoBehaviour
 {
     public Rigidbody2D rb;
     [SerializeField][Range(0f, 10f)] private float MoveSpeed;
-    [SerializeField][Range (0f,10f)] private float Hspeed;
+    [SerializeField][Range (0f,10f)] private float Vspeed;
     private float DirectX;
     private float DirectY;
     public Camera Camera;
@@ -16,7 +16,7 @@ public class PLayer_Manager : MonoBehaviour
     void Update()
     {
         Move();
-        //transform.Translate(0f, Hspeed * Time.deltaTime, 0f);
+        
     }
     //move right and left
     private void Move()
