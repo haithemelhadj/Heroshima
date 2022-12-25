@@ -8,6 +8,7 @@ public class PLayer_Manager : MonoBehaviour
     [SerializeField][Range(0f, 10f)] private float MoveSpeed;
     [SerializeField][Range (0f,10f)] private float Hspeed;
     private float DirectX;
+    private float DirectY;
     public Camera Camera;
     
 
@@ -15,25 +16,27 @@ public class PLayer_Manager : MonoBehaviour
     void Update()
     {
         Move();
-        transform.Translate(0f, Hspeed * Time.deltaTime, 0f);
+        //transform.Translate(0f, Hspeed * Time.deltaTime, 0f);
     }
     //move right and left
     private void Move()
     {
         //get input
         DirectX = Input.GetAxis("Horizontal");
+        DirectY = Input.GetAxis("Vertical");
 
         //move
-        rb.velocity = new Vector2(DirectX * MoveSpeed, 0f);
+        rb.velocity = new Vector2(DirectX * MoveSpeed, DirectY * MoveSpeed);
 
         //movement with tilting the phone
         DirectX = Input.acceleration.x * MoveSpeed * Time.deltaTime;
+        DirectY = Input.acceleration.y * MoveSpeed * Time.deltaTime;
 
-        transform.Translate(DirectX, 0f, 0f);
+        transform.Translate(DirectX, DirectY, 0f);
 
 
 
-
+        /*
         //move Player with finger
         if (Input.touchCount > 0 || Input.touchCount == 1)
         {
@@ -50,5 +53,6 @@ public class PLayer_Manager : MonoBehaviour
                 transform.position = Vector2.MoveTowards(transform.position, new Vector2(touchPosition.x, transform.position.y), MoveSpeed * Time.deltaTime);
             }
         }
+        */
     }
 }
