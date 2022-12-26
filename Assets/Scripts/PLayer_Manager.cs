@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PLayer_Manager : MonoBehaviour
 {
@@ -16,7 +17,11 @@ public class PLayer_Manager : MonoBehaviour
     public GameObject WinText;
     public GameObject LoseText;
 
-    
+    public Text FuelText;
+    public Text NuclearPowerText;
+    public Text HealthText;
+
+
     private float inittimer = 1f;
     private float timer;
     
@@ -150,6 +155,13 @@ public class PLayer_Manager : MonoBehaviour
     public void Reset()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void FixedUpdate()
+    {
+        FuelText.text = Fuel.ToString();
+        NuclearPowerText.text =  NuclearPower.ToString();
+        HealthText.text = Health.ToString();
     }
 
 }
