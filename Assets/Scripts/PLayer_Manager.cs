@@ -13,6 +13,10 @@ public class PLayer_Manager : MonoBehaviour
     public Camera Camera;
 
     public GameObject Button;
+    public GameObject WinText;
+    public GameObject LoseText;
+
+    
     private float inittimer = 1f;
     private float timer;
     
@@ -23,10 +27,15 @@ public class PLayer_Manager : MonoBehaviour
 
     private bool GameOver = false;
     private bool Win = false;
+    
+    
 
     private void Awake()
     {
+        Time.timeScale = 1;
         Button.SetActive(false);
+        WinText.SetActive(false);
+        LoseText.SetActive(false);
     }
 
     void Update()
@@ -48,12 +57,14 @@ public class PLayer_Manager : MonoBehaviour
             Debug.Log("Game Over");
             Time.timeScale = 0f;
             Button.SetActive(true);
+            LoseText.SetActive(true);
         }
         if (Win)
         {
             Debug.Log("You Win");
             Time.timeScale = 0f;
             Button.SetActive(true);
+            WinText.SetActive(true);
         }
 
     }
