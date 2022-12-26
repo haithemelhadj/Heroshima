@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PLayer_Manager : MonoBehaviour
 {
@@ -10,13 +11,51 @@ public class PLayer_Manager : MonoBehaviour
     private float DirectX;
     private float DirectY;
     public Camera Camera;
-    
 
+    public GameObject Button;
+    private float inittimer = 1f;
+    private float timer;
     
+    [SerializeField] private int Health = 3;
+    [SerializeField] private float Fuel = 100f;
+    [SerializeField] private int NuclearPower = 0;
+    [SerializeField] private int Score;
+
+    private bool GameOver = false;
+    private bool Win = false;
+
+    private void Awake()
+    {
+        Button.SetActive(false);
+    }
+
     void Update()
     {
         Move();
+        gameOver();
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+        }
+        else
+        {
+            timer = inittimer;
+            Fuel -= 1;
+        }
         
+        if(GameOver)
+        {
+            Debug.Log("Game Over");
+            Time.timeScale = 0f;
+            Button.SetActive(true);
+        }
+        if (Win)
+        {
+            Debug.Log("You Win");
+            Time.timeScale = 0f;
+            Button.SetActive(true);
+        }
+
     }
     //move right and left
     private void Move()
@@ -55,4 +94,51 @@ public class PLayer_Manager : MonoBehaviour
         }
         */
     }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Fuel"))
+        {
+            //do something
+            Fuel += 5f;
+        }
+        if (collision.CompareTag("NuclearPower"))
+        {
+            //do something
+            NuclearPower += 10;
+        }
+        if (collision.CompareTag("obstacle"))
+        {
+            //do something
+            Health -= 1;
+        }
+    }
+
+    void gameOver()
+    {
+        if (Health <= 0)
+        {
+            //do something
+            GameOver = true;
+        }
+        if (Fuel <= 0)
+        {
+            //do something
+            GameOver = true;
+        }
+        if (NuclearPower >= 100)
+        {
+            //do something
+            Win = true;
+        }
+
+
+    }
+
+    public void Reset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
 }
